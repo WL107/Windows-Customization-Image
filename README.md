@@ -1,24 +1,5 @@
-# Windows Deploy
-***
-
-[目錄](#Windows)
-
-1. Windows Commands
-2. Diskpart
-3. Deploy Commands
-4. Deploy Image Tool Commands
-5. [Windows Commands](#Windows)
-6. [Windows Commands](## h2)
-
-[目錄](#index1)
-## h2
-### h3
-#### h4
-##### h5
-###### h6
-
-# Windows Commands
-
+1 . Windows Commands
+======
 
 ## Windows + R or Cmd
 * 命令提示字元 \
