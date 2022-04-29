@@ -1,13 +1,14 @@
 # Windows Deploy
 ***
 
-目錄{#index1}
+[目錄](#Windows Deploy)
 
 1. Windows Commands
 2. Diskpart
 3. Deploy Commands
 4. Deploy Image Tool Commands
-5. 
+5. [Windows Commands](###### h6)
+6. [Windows Commands](## h2)
 
 [目錄](#index1)
 ## h2
@@ -223,23 +224,30 @@
 
 3 . Deploy Commands(Windows底下可直接使用)
 ======
-* 新增開機引導 ```bcdboot```\
+* 新增開機引導 \
+```bcdboot```\
 <https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/bcdboot-command-line-options-techref-di?view=windows-11>
-* 編輯開機引導 ```bcdedit```\
+* 編輯開機引導 \
+```bcdedit```\
 <https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/bcdedit-command-line-options?view=windows-11>
 * 擷取C槽資料放在D槽 \
-```Dism /Capture-Image /ImageFile:"D:\install.wim" /CaptureDir:C:\ /Name:install```
+```Dism /Capture-Image /ImageFile:"D:\install.wim" /CaptureDir:C:\ /Name:install```\
+<https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/iot-ent-sysprep-capture-deploy?view=windows-11>
 * 套用install.wim資料到W槽 \
-```dism /Apply-Image /ImageFile:D:\install.wim /Index:1 /ApplyDir:W:\```
+```dism /Apply-Image /ImageFile:D:\install.wim /Index:1 /ApplyDir:W:\```\
+<https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/iot-ent-sysprep-capture-deploy?view=windows-11>
 * 顯示當前系統的安裝包 \
-```dism /online /Get-Packages /Format:Table```
+```dism /online /Get-Packages /Format:Table```\
+<https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/add-language-packs-to-windows?view=windows-11>
 * 安裝當前系統的安裝包(語言包) \
-```Dism /online /Add-Package /PackagePath:C:\packages\XXX```
+```Dism /online /Add-Package /PackagePath:C:\packages\XXX```\
+<https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/add-language-packs-to-windows?view=windows-11>
 * 移除當前系統的安裝包(語言包) \
-```Dism /online /Remove-Package /PackageName:XXX```
-* 修改硬碟類型欄位 ```set id```\
+```Dism /online /Remove-Package /PackageName:XXX```\
+<https://docs.microsoft.com/zh-tw/windows-hardware/manufacture/desktop/add-language-packs-to-windows?view=windows-11>
+* 修改硬碟類型欄位 \
+```set id```\
 <https://docs.microsoft.com/zh-tw/windows-server/administration/windows-commands/set-id>
-
 
 
 
@@ -273,47 +281,34 @@
 ### 3. Add Driver to WinPE:
 
 * Add Driver folder.\
-
 ```Dism /Add-Driver /Image:"C:\WinPE_amd64\mount" /Driver:"C:\WinPE_amd64\x64" /recurse```
 
 * Check Driver has in WinPE\
-
 ```Dism /Get-Drivers /Image:"C:\WinPE_amd64\mount"```
 
 * 確認key和sysprep\
 ```slmgr /dlv```
 
-### 4. 如何清除mount 殘留檔案及掛載失敗問題\
+### 4. 如何清除mount 殘留檔案及掛載失敗問題
 
 ```DISM /Cleanup-Wim```\
-
-
 ```Imagex /Cleanup```
 
 
 ### 5. Capture Image 
-* diskpart:  list vol (看磁區)\
-```Dism /Capture-Image /ImageFile:D:\Win10.wim /CaptureDir:C:\ /Name:Win10 /Description:0000-00-00```\
-（例如：把 C 槽的系统備份到 D 槽中，備份文件名為 Win10.wim）
+* diskpart:  list vol (看磁區)
+* 把 C 槽的系统備份到 D 槽中，備份文件名為 install.wim\
+```Dism /Capture-Image /ImageFile:D:\install.wim /CaptureDir:C:\ /Name:Win10 /Description:0000-00-00```
 
-
-### 6. Apply Image \
-
-```dism /Apply-Image /ImageFile:D:\sources\install.wim /Index:1 /ApplyDir:W:\```\
-（例如：把 D槽install.wim 中的備份還原到 W槽）
-
-
+### 6. Apply Image 
+* 把 D槽install.wim 中的備份還原到 W槽
+```dism /Apply-Image /ImageFile:D:\sources\install.wim /Index:1 /ApplyDir:W:\```
 
 
 * .FFU是把整顆硬碟所有磁區都抓出來:Capture .FFU file\
-
 ```DISM /capture-ffu /imagefile=e:\WinOEM.ffu /capturedrive=\\.\PhysicalDrive0 /name:disk0 /description:"Windows 10 FFU"```
 
-
 * Apply .FFU file\
-
 ```DISM /apply-ffu /ImageFile=N:\WinOEM.ffu /ApplyDrive:\\.\PhysicalDrive0```\
-
 ```DISM /apply-image /imagefile:d:\flash.ffu /applydrive:\\.\PhysicalDrive0 /skipplatformcheck```
-
 
